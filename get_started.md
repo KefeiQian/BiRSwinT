@@ -7,8 +7,15 @@ This tutorial assumes you're running Python version 3.9.
 Before we get started, we need to download several pretrained model files. Unfortunately, the author didn't provide the
 specific model file they used, so we'll have to rely on other sources.
 
+The author mentioned in the issue 1:
+
+> Checkpoint1 is the training parameter of Swin-S model on the AUC dataset, and checkpoint2 is the pre-training
+> parameter of Swin-B-IN1K.
+
 Please note that I can't provide the exact source of the model file, so I will provide a link to the model file that I
 think is appropriate. These model files should be sufficient to run and test the framework.
+
+After the author give us the model file, we can follow the guide and skip this section.
 
 In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use some pretrained model files.
 
@@ -145,4 +152,5 @@ If you've started `run.sh` correctly, you should see a prompt like this:
 
 ## Contact Me
 
-**If you have any questions, feel free to create an issue in this repository or reach me at gmail: `daydreamqian+BiRSwinT`.**
+**If you have any questions, feel free to create an issue in this repository or reach me at
+gmail: `daydreamqian+BiRSwinT`.**
