@@ -34,7 +34,7 @@ class BiRSwinT(torch.nn.Module):
             checkpoint1 = torch.load(config.DATA.SWIN_TRANSFORMER_CHECKPOINT_PATH, map_location="cpu")
             checkpoint2 = torch.load("swin_small_patch4_window7_224.pth", map_location="cpu")
             part_sd = {k: v for k, v in checkpoint2.items() if k not in ["head.weight", "head.bias"]}
-            self.global_representation_branch.load_state_dict(checkpoint1["model"], strict=False)
+            self.global_representation_branch.load_state_dict(checkpoint1, strict=False)
             self.local_residual_branch.state_dict().update(part_sd)
         else:
             checkpoint = torch.load(ctx.latest_round_result, map_location="cpu")
