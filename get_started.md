@@ -17,7 +17,7 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
 1. **SWIN_TRANSFORMER_CHECKPOINT_PATH** - `ckpt_epoch_44.pth`
 
    By default, the SWIN_TRANSFORMER_CHECKPOINT_PATH is set to `ckpt_epoch_44.pth` (located
-   in [BiRSwinT.yaml](configs/BiRSwinT/BiRSwinT.yaml)). 
+   in [BiRSwinT.yaml](configs/BiRSwinT/BiRSwinT.yaml)).
 
    However, I was unable to locate this file online, so I used the
    following file instead:
@@ -27,7 +27,7 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
    ![ckpt_epoch_44.png](figures/ckpt_epoch_44.png)
 
    You can download this file, rename it to `ckpt_epoch_44.pth`, and place it in the root directory of this project.
-   
+
    Alternatively, you can change the configuration file to set the SWIN_TRANSFORMER_CHECKPOINT_PATH to the location of
    the file you've downloaded.
 
@@ -46,7 +46,7 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
 
 2. Download the dataset from Kaggle: https://www.kaggle.com/competitions/state-farm-distracted-driver-detection/data
 
-3. Extract the data into the `AUCCamera` directory. The two CSV files are not needed and can be safely deleted. 
+3. Extract the data into the `AUCCamera` directory. The two CSV files are not needed and can be safely deleted.
 
 4. Move the 'train' and 'test' folders out of the 'imgs' folder. Remove the 'imgs' folder if you like.
 
@@ -55,7 +55,8 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
    ![AUCCamera.png](figures/AUCCamera.png)
 
 5. Since we don't have category labels for the test images, we can partition our training images into a training and a
-   validation set. I have written a Jupyter notebook (`split_train_val.ipynb`) for this purpose, which you can find in
+   validation set. I have written a Jupyter notebook ([split_train_val.ipynb](split_train_val.ipynb)) for this purpose,
+   which you can find in
    the root directory.
 
 6. After completing the steps above, your project folder should look like this:
@@ -69,51 +70,53 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
 
 ### Running in a Conda/Virtual Environment
 
-   If you prefer to run the code in your conda or virtual environment, rather than a Docker container or virtual machine,
-   you can simply install the requirements using pip and then run `run.sh`.
-   
+If you prefer to run the code in your conda or virtual environment, rather than a Docker container or virtual machine,
+you can simply install the requirements using pip and then execute [run.sh](run.sh).
+
    ```shell
    pip install -r requirements.txt
    ```
 
 ### Recommended Method: Running in Docker
 
-   If you don't have PyTorch, CUDA, or other dependencies, or if you'd like to simplify the process, it's recommended to
-   run the code in Docker.
+If you don't have PyTorch, CUDA, or other dependencies, or if you'd like to simplify the process, it's recommended to
+run the code in Docker.
 
-   1. Run `docker.build.sh`.
+1. Run [docker.build.sh](docker.build.sh).
 
-   2. Edit `docker.run.sh` to mount your project folder. In my case, I've stored the project in my E drive and I run
-      scripts in Windows WSL2 Ubuntu, so I've mounted the project folder in the E drive(`/mnt/e/BirSwinT`) to the Docker
-      container.
+2. Edit [docker.run.sh](docker.run.sh) to mount your project folder. In my case, I've stored the project in my E drive
+   and I run
+   scripts in Windows WSL2 Ubuntu, so I've mounted the project folder in the E drive(`/mnt/e/BirSwinT`) to the Docker
+   container.
 
-      ```shell
-      docker run -it --gpus=all -v /mnt/e/BirSwinT:/BirSwinT birswint:base /bin/bash
-       ```
+   ```shell
+   docker run -it --gpus=all -v /mnt/e/BirSwinT:/BirSwinT birswint:base /bin/bash
+    ```
 
-      Replace `/mnt/e/BirSwinT` with the path of your own project folder.
+   Replace `/mnt/e/BirSwinT` with the path of your own project folder.
 
-   3. Run  `docker.run.sh`.
+3. Run [docker.run.sh](docker.run.sh).
 
-      `docker.run.sh` will navigate you to the Docker container, where you can run `run.sh` or the following script (which
-      is the same as `run.sh`) to test the framework:
+   `docker.run.sh` will navigate you to the Docker container, where you can execute [run.sh](run.sh) or the following
+   script (which
+   is the same as `run.sh`) to train and validate the framework:
 
-      ```shell
-      python train_valid.py --cfg=configs/BiRSwinT/BiRSwinT.yaml
-      ```
+   ```shell
+   python train_valid.py --cfg=configs/BiRSwinT/BiRSwinT.yaml
+   ```
 
 ## Starting the Training and Validating Process
 
-   If you've started `run.sh` correctly, you should see a prompt like this:
+If you've started `run.sh` correctly, you should see a prompt like this:
 
-   ![start_running.png](figures/start_running.png)
+![start_running.png](figures/start_running.png)
 
 ## Other modifications I made
 
 1. KeyError: 'Non-existent config key: MODEL.SWIN'
 
    If you encounter an error like `KeyError: 'Non-existent config key: MODEL.SWIN'`, you'll need to add the parameter
-   into `config.py` and `BiRSwinT.yaml`.
+   into [config.py](config.py) and [BiRSwinT.yaml](configs/BiRSwinT/BiRSwinT.yaml).
 
    For example, I ran into the following error:
 
@@ -127,13 +130,14 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
 
    ![BiRSwinT.yaml.png](figures/BiRSwinT.yaml.png)
 
-   You can simply copy and paste the lines from `config.py` and `BiRSwinT.yaml` in this repository into your own code.
+   You can simply copy and paste the lines from [config.py](config.py)
+   and [BiRSwinT.yaml](configs/BiRSwinT/BiRSwinT.yaml) in this repository into your own code.
 
 2. KeyError: 'model'
 
    ![error2.png](figures/error2.png)
 
-   This error is because the model file we download is not the same as the model file used by the author. 
+   This error is because the model file we download is not the same as the model file used by the author.
 
    To solve this, simply remove the `['model']` in [BiRSwinT.py](BiRSwinT.py) line 37.
 
@@ -141,4 +145,4 @@ In [BiRSwinT.py](BiRSwinT.py), there are two checkpoints where we need to use so
 
 ## Contact Me
 
-**If you have any questions, feel free to create an issue in this repository or contact me at gmail: `daydream.qian`.**
+**If you have any questions, feel free to create an issue in this repository or reach me at gmail: `daydreamqian+BiRSwinT`.**
